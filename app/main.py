@@ -23,6 +23,15 @@ async def start_handler(message: "Message") -> None:
     )
 
 
+async def help_handler(message: "Message") -> None:
+    """Відповідь на команду /help."""
+    await message.answer(
+        "Я інформаційний бот LegalHelp4UA. Ось що я вмію:\n\n"
+        "/start — привітання\n"
+        "/help — це повідомлення"
+    )
+
+
 async def main() -> int:
     """Завантажує налаштування та запускає бота."""
     try:
@@ -44,7 +53,7 @@ async def main() -> int:
 
     try:
         from aiogram import Bot, Dispatcher
-        from aiogram.filters import CommandStart
+        from aiogram.filters import Command, CommandStart
     except ModuleNotFoundError:
         logger.error("Не встановлено aiogram. Виконайте: pip install -r requirements.txt")
         return 1
@@ -52,6 +61,7 @@ async def main() -> int:
     # Реєструємо хендлер і запускаємо polling.
     dp = Dispatcher()
     dp.message.register(start_handler, CommandStart())
+    dp.message.register(help_handler, Command("help"))
 
     bot = Bot(token=token)
     logger.info("Бот LegalHelp4UA стартував. Запуск polling...")
