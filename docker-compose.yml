@@ -1,5 +1,14 @@
 services:
   bot:
     build: .
+    # Підтягуємо змінні з локального .env без додавання токена в репозиторій.
     env_file:
       - .env
+    environment:
+      # Для bind mount у Docker Desktop на Windows watchfiles надійніше працює через polling.
+      WATCHFILES_FORCE_POLLING: "true"
+    volumes:
+      # Монтуємо локальний код, щоб контейнер бачив зміни без перебілду.
+      - .:/app
+    # Перезапускаємо бота при зміні Python-файлів у папці app.
+    command: ["watchfiles", "python -m app.main", "app"]
