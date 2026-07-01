@@ -28,7 +28,55 @@ async def help_handler(message: "Message") -> None:
     await message.answer(
         "Я інформаційний бот LegalHelp4UA. Ось що я вмію:\n\n"
         "/start — привітання\n"
+        "/services — які документи оформлюємо\n"
+        "/process — як відбувається оформлення\n"
+        "/contacts — як з нами зв'язатися\n"
         "/help — це повідомлення"
+    )
+
+
+async def services_handler(message: "Message") -> None:
+    """Відповідь на команду /services."""
+    await message.answer(
+        "📄 LegalHelp4UA — дистанційне нотаріальне оформлення документів\n\n"
+        "Допомагаємо українцям за кордоном оформити:\n"
+        "• Довіреності — на нерухомість, авто, представництво в судах/органах влади, ведення бізнесу\n"
+        "• Заяви та згоди — на виїзд дитини за кордон, згода подружжя на продаж/купівлю нерухомості, інші заяви для нотаріуса, податкової, суду\n"
+        "• Спадкові документи — заяви про прийняття/відмову від спадщини, довіреність на оформлення спадщини\n"
+        "• Договори — шлюбний договір, договір про аліменти, місце проживання дитини та інші\n"
+        "• Переклади з апостилем та інші документи — affidavits, KYC/AML пакети, сертифікати резиденції\n\n"
+        "Усе — дистанційно, з посвідченням під відеозв'язок із нотаріусом та апостилем."
+    )
+
+
+async def process_handler(message: "Message") -> None:
+    """Відповідь на команду /process."""
+    await message.answer(
+        "🔄 Як ми працюємо\n\n"
+        "1. Заявка — залишаєте заявку на сайті чи в чаті\n"
+        "2. Безкоштовна консультація юриста — уточнюємо, який документ потрібен, і готуємо проєкт\n"
+        "3. Погоджуємо текст документа з вами\n"
+        "4. Підписання під відеозв'язком із нотаріусом\n"
+        "5. Нотаріальне посвідчення та апостиль (від 24 годин)\n"
+        "6. Доставка готового документа кур'єром\n\n"
+        "Особиста присутність не потрібна — усе дистанційно."
+    )
+
+
+async def contacts_handler(message: "Message") -> None:
+    """Відповідь на команду /contacts."""
+    await message.answer(
+        "📞 Як з нами зв'язатися\n\n"
+        "Сайт: legalhelp4ua.com\n"
+        "Email: support@legalhelp4ua.com\n"
+        "Телефон (Велика Британія): +44 7418 376606\n"
+        "Телефон (Україна): +380 63 837 6606\n"
+        "Telegram: t.me/legalhelp4ukraine\n"
+        "WhatsApp: wa.me/message/ATIHVIHXWOHVF1\n"
+        "Viber: за номером +44 7518 275176\n"
+        "Графік: Пн–Пт, 9:00–21:00 (за Києвом)\n\n"
+        "Напишіть зручним каналом — ми відповімо і допоможемо.\n"
+        "Інформація має довідковий характер і не є юридичною консультацією."
     )
 
 
@@ -58,9 +106,12 @@ async def main() -> int:
         logger.error("Не встановлено aiogram. Виконайте: pip install -r requirements.txt")
         return 1
 
-    # Реєструємо хендлер і запускаємо polling.
+    # Реєструємо хендлери і запускаємо polling.
     dp = Dispatcher()
     dp.message.register(start_handler, CommandStart())
+    dp.message.register(services_handler, Command("services"))
+    dp.message.register(process_handler, Command("process"))
+    dp.message.register(contacts_handler, Command("contacts"))
     dp.message.register(help_handler, Command("help"))
 
     bot = Bot(token=token)
