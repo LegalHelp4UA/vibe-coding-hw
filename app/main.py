@@ -121,4 +121,15 @@ async def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(asyncio.run(main()))
+    try:
+        exit_code = asyncio.run(main())
+    except (KeyboardInterrupt, asyncio.CancelledError):
+        logger.info("Бот зупинено.")
+        raise SystemExit(0) from None
+    except SystemExit as exc:
+        if exc.code not in (None, 0, 130):
+            raise
+        logger.info("Бот зупинено.")
+        raise SystemExit(0) from None
+
+    raise SystemExit(exit_code)
