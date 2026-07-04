@@ -16,6 +16,7 @@ logger = logging.getLogger(__name__)
 
 async def start_handler(message: "Message") -> None:
     """Відповідь на команду /start."""
+    logger.info("Команда /start від user_id=%s", message.from_user.id)
     await message.answer(
         "Вітаю! Я інформаційний бот LegalHelp4UA. "
         "Допомагаю українцям за кордоном із нотаріальними документами "
@@ -25,6 +26,7 @@ async def start_handler(message: "Message") -> None:
 
 async def help_handler(message: "Message") -> None:
     """Відповідь на команду /help."""
+    logger.info("Команда /help від user_id=%s", message.from_user.id)
     await message.answer(
         "Я інформаційний бот LegalHelp4UA. Ось що я вмію:\n\n"
         "/start — привітання\n"
@@ -37,6 +39,7 @@ async def help_handler(message: "Message") -> None:
 
 async def services_handler(message: "Message") -> None:
     """Відповідь на команду /services."""
+    logger.info("Команда /services від user_id=%s", message.from_user.id)
     await message.answer(
         "📄 LegalHelp4UA — дистанційне нотаріальне оформлення документів\n\n"
         "Допомагаємо українцям за кордоном оформити:\n"
@@ -51,6 +54,7 @@ async def services_handler(message: "Message") -> None:
 
 async def process_handler(message: "Message") -> None:
     """Відповідь на команду /process."""
+    logger.info("Команда /process від user_id=%s", message.from_user.id)
     await message.answer(
         "🔄 Як ми працюємо\n\n"
         "1. Заявка — залишаєте заявку на сайті чи в чаті\n"
@@ -65,6 +69,7 @@ async def process_handler(message: "Message") -> None:
 
 async def contacts_handler(message: "Message") -> None:
     """Відповідь на команду /contacts."""
+    logger.info("Команда /contacts від user_id=%s", message.from_user.id)
     await message.answer(
         "📞 Як з нами зв'язатися\n\n"
         "Сайт: legalhelp4ua.com\n"
