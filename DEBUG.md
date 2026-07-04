@@ -17,6 +17,8 @@
 - **Головний рядок:** `BOT_TOKEN не заданий`
 - **Причина:** бот не бачить токен, бо рядок у `.env` був закоментований.
 - **Як виправив:** прибрав `#` перед `BOT_TOKEN` і зберіг `.env`.
+- **Який prompt дав AI:** "Поясни цей лог простими словами: тип помилки, причина і мінімальний фікс. Не переписуй проєкт."
+- **Як перевірив, що працює:** повернув `BOT_TOKEN` у `.env`, запустив `python -m app.main` і побачив старт polling без помилки токена.
 
 ---
 
@@ -38,6 +40,8 @@ ModuleNotFoundError: No module named 'nonexistent_module'
 - **Головний рядок:** `ModuleNotFoundError: No module named 'nonexistent_module'`
 - **Причина:** Python намагається імпортувати модуль, якого не існує.
 - **Як виправив:** прибрав рядок `import nonexistent_module`.
+- **Який prompt дав AI:** "Ось traceback з ModuleNotFoundError. Поясни тип помилки, файл і рядок, причину та мінімальний фікс."
+- **Як перевірив, що працює:** прибрав навмисний імпорт і повторно запустив `python -m app.main`; ця помилка більше не з'явилась.
 
 ---
 
@@ -61,3 +65,5 @@ ImportError: cannot import name 'CommandFake' from 'aiogram.filters'
 - **Головний рядок:** `ImportError: cannot import name 'CommandFake' from 'aiogram.filters'`
 - **Причина:** у бібліотеці `aiogram.filters` немає назви `CommandFake`.
 - **Як виправив:** прибрав `CommandFake`, залишив `Command` і `CommandStart`.
+- **Який prompt дав AI:** "Traceback показує ImportError. Це справжня назва aiogram чи вигадана? Дай мінімальний фікс імпорту."
+- **Як перевірив, що працює:** прибрав `CommandFake`, запустив `python -m app.main` і перевірив, що бот стартує та команди обробляються.
